@@ -1,4 +1,4 @@
-# Django Blogging System
+# BlogNest- Blogging System
 
 A full-stack blogging platform built with **Django** by **Rajarshi Roy**. The application provides public blog browsing together with authentication, search, comments, media uploads, and a dashboard for managing posts, categories, and users.
 
