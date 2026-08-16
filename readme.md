@@ -1,56 +1,198 @@
-# Django Blog Project — Premium Course (Tech With Rathan)
+# Django Blogging System
 
-**Welcome!**  
-This repository contains the source code for the *Django Blogging System* premium course by **Tech With Rathan**. This is a real-world, feature-rich blogging system built to teach practical Django — from models, templates and forms to permissions, dashboards and deployment.
+A full-stack blogging platform built with **Django** by **Rajarshi Roy**. The application provides public blog browsing together with authentication, search, comments, media uploads, and a dashboard for managing posts, categories, and users.
+
+## Overview
+
+This project demonstrates a traditional server-rendered Django architecture with reusable apps, Django ORM models, template-based views, authentication, form handling, image uploads, and administrative content-management workflows.
+
+The application is organized around three main areas:
+
+- **Public blog** — browse published posts, featured posts, categories, individual articles, and search results.
+- **Authentication** — user registration, login, and logout using Django's built-in authentication system.
+- **Management dashboard** — create, edit, and delete categories, blog posts, and users.
+
+## Features
+
+- User registration, login, and logout
+- Published and draft blog-post workflow
+- Featured blog posts
+- Category-based post filtering
+- Full-text-style search across title, short description, and blog body
+- Individual blog pages with unique slugs
+- Blog comments
+- Featured-image uploads
+- Category CRUD operations
+- Blog-post CRUD operations
+- User CRUD operations
+- Django Groups and Permissions available through dashboard user management
+- Dashboard statistics for total categories and blog posts
+- Configurable About section and social links
+- Django admin integration
+- Custom 404 template
+
+## Tech Stack
+
+| Area | Technology |
+| --- | --- |
+| Backend | Python, Django |
+| Database | SQLite |
+| ORM | Django ORM |
+| Frontend | Django Templates, HTML, CSS |
+| Forms/UI | Django Forms, django-crispy-forms, Crispy Bootstrap 4 |
+| Authentication | Django Authentication |
+| Image Handling | Pillow, Django Media Files |
+
+## Application Structure
+
+```text
+blogging-system-yt-main/
+├── assignments/          # About and social-link models
+├── blog_main/            # Django project settings, root URLs and auth/home views
+├── blogs/                # Blog, category and comment domain logic
+├── dashboards/           # Dashboard forms, routes and CRUD views
+├── media/                # Uploaded media files
+├── templates/            # Public and dashboard Django templates
+├── db.sqlite3            # Development SQLite database
+├── manage.py             # Django management entry point
+└── requirements.txt      # Python dependencies
+```
+
+## Core Data Model
+
+### Category
+Stores unique blog categories and timestamps.
+
+### Blog
+Stores the main article content, including:
+
+- title and unique slug
+- category
+- author
+- featured image
+- short description
+- blog body
+- `Draft` / `Published` status
+- featured-post flag
+- created and updated timestamps
+
+### Comment
+Associates a user comment with a specific blog post.
+
+### About and SocialLink
+Provide editable site information and social-media links.
+
+## Main Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Home page with featured and published posts |
+| `/blogs/<slug>/` | Individual blog post |
+| `/category/...` | Posts by category |
+| `/search/` | Blog search |
+| `/register/` | User registration |
+| `/login/` | Login |
+| `/logout/` | Logout |
+| `/dashboard/` | Management dashboard |
+| `/dashboard/categories/` | Category management |
+| `/dashboard/posts/` | Blog-post management |
+| `/dashboard/users/` | User management |
+| `/admin/` | Django admin |
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/rajarshi700/blogging-system-yt-main.git
+cd blogging-system-yt-main
+```
+
+### 2. Create and activate a virtual environment
+
+```bash
+python -m venv venv
+```
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+**macOS / Linux**
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+The project currently uses Django, Pillow, `django-crispy-forms`, and `crispy-bootstrap4`.
+
+### 4. Apply database migrations
+
+```bash
+python manage.py migrate
+```
+
+### 5. Create an admin user
+
+```bash
+python manage.py createsuperuser
+```
+
+### 6. Run the development server
+
+```bash
+python manage.py runserver
+```
+
+Open `http://127.0.0.1:8000/` in your browser.
+
+## How the Application Works
+
+```text
+User Request
+    │
+    ▼
+Django URL Router
+    │
+    ▼
+Views / Forms
+    │
+    ├── Authentication
+    ├── Blog & Category Logic
+    ├── Search & Comments
+    └── Dashboard CRUD
+    │
+    ▼
+Django ORM
+    │
+    ▼
+SQLite Database
+    │
+    ▼
+Django Templates + Media
+    │
+    ▼
+Rendered HTML Response
+```
+
+## Development Notes
+
+This repository is currently configured for local development with SQLite. Before using it in production, move sensitive settings such as `SECRET_KEY` to environment variables, disable Django debug mode, configure `ALLOWED_HOSTS`, use appropriate production static/media handling, and review authorization on management routes.
+
+## Author
+
+**Rajarshi Roy**
+
+- GitHub: [@rajarshi700](https://github.com/rajarshi700)
 
 ---
 
-## What you’ll learn
-- Project structure & real-world folder layout  
-- Models: Blog, Category, Comment, User relations, slugs, media handling  
-- Forms: Create/Edit posts, user registration, comments  
-- Authentication & Authorization: Login, logout, Groups, Permissions, decorators  
-- Admin customizations & listings  
-- Dashboards for Editors / Managers with role checks  
-- Search, pagination, featured & recent posts  
-- File uploads (media), static files, and templates  
-- Deployment checklist and steps
-
-This course focuses on **practical features** used in production blogging systems and how to structure code for clarity and maintainability.
-
----
-
-## Features implemented
-- Multi-role system (Admin / Manager / Editor / Author)  
-- Create / Read / Update / Delete (CRUD) for posts & categories  
-- Unique slug generation & prepopulation  
-- Media (image) upload & configuration  
-- Comment system (only authenticated users can comment)  
-- Manager & Editor dashboards with counts and tables  
-- Granular permission checks (using Django Groups & Permissions + custom checks)  
-- Search feature with retained search term in textbox  
-- Deployment on PythonAnywhere
-
----
-
-## Requirements
-- Python 3.10+ (recommended)  
-- Django 4.x (see `requirements.txt`) - always use latest version 
-- A virtual environment tool (`venv` / `virtualenv`)  
-- PostgreSQL / MySQL or SQLite for development
-- (Optional) nginx / gunicorn for production — [contact me](https://techwithrathan.com/contact/) for advanced deployments.
-
-## 🚀 Join My 8-Week Backend Developer Program  
-Become industry-ready in 8 weeks!  
-👉 [Enroll here](https://techwithrathan.com/django-live/)
-
-## ❤️ Support My Work
-
-<a href="https://www.youtube.com/@rathankumar">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg" width="120">
-</a>
-
-If you like this project, please support me by subscribing to my channel:  
-👉 **Tech With Rathan** — https://www.youtube.com/@rathankumar
-
-All the best.
+If you find the project useful, consider starring the repository.
